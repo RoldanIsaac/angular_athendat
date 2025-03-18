@@ -22,11 +22,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
    max-width: 100%;
    gap: 1rem;
 }
+
 .product-card {
    position: relative;
    height: 9rem !important;
    border: solid 1px #d1d5db;
    border-radius: 8px;
+   min-width: 350px !important;
    padding: 1rem 1.25rem 1rem 1.25rem;
    transition: all 0.3s ease;
    &:hover{
@@ -44,7 +46,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       height: 4.2rem;
    }
    > span {
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: 600;
       color: #0f4392;
    }
 }
@@ -54,7 +57,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
    position: absolute;
    bottom: 0;
    right: 0;
-   padding: 2px;
+   padding: 0 1rem 2px 0;
    justify-content: end;
    display: flex;
    flex-direction: row;

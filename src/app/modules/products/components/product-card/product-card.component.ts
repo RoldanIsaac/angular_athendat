@@ -32,8 +32,8 @@ export class ProductCardComponent implements OnInit {
   @Output() rejectEmit = new EventEmitter(); 
   @Output() deleteEmit = new EventEmitter();
 
-  checked: boolean = false;
-
+  approve: boolean = false;
+  reject: boolean = false;
 
   iconsUrl = "icons/sho/round-stroke"
   isIcon: boolean = false;
@@ -76,10 +76,12 @@ export class ProductCardComponent implements OnInit {
   }
 
   onApprove(product: Product) {
+    this.reject = false;
     this.approveEmit.emit(product);
   }
 
   onReject(product: Product) {
+    this.approve = false;
     this.rejectEmit.emit(product);
   }
 

@@ -40,12 +40,14 @@
 		*ngIf="product.status.toLowerCase() !== 'approved' || product.status.toLowerCase() !== 'rejected'"
 	>
 		<mat-checkbox
-			[(ngModel)]="checked"
+			[(ngModel)]="approve"
+			(change)="onApprove(product)"
 			>
 			Approve
 		</mat-checkbox>
 		<mat-checkbox
-			[(ngModel)]="checked"
+			[(ngModel)]="reject"
+			(change)="onReject(product)"
 			>
 			Reject
 		</mat-checkbox>
