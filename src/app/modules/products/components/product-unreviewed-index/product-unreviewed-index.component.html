@@ -1,0 +1,28 @@
+<div class="h-screen min-w-full view-container">
+
+	<div class="view bg-card rounded m-4">
+
+		<div>
+			<h1>Unreviewed Products</h1>
+		</div>
+
+		@if (error | async ) {
+			something went wrong!
+		} @else {
+			<div class="products-container">
+
+				@for (product of products$ | async; track $index) {
+
+					<app-product-card
+						[product]="product"
+						(approveEmit)="approveProduct($event)"
+						(rejectEmit)="approveProduct($event)"
+					></app-product-card>
+
+				}
+			</div>
+		}
+
+	</div>
+
+</div>
