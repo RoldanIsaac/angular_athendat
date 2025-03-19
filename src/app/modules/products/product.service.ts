@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, from, map, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, from, map, Observable, of, Subject, tap, throwError } from 'rxjs';
 import { Product } from './states/product.model';
 import { openDB, IDBPDatabase } from 'idb';
 
@@ -11,9 +11,9 @@ export class ProductService {
   private dbName = 'athendatProductDB';
   private dbVersion = 1;
   private db: IDBPDatabase | undefined;
+  private _noMoreProducts: Subject<boolean> = new Subject<boolean>();
 
-  // URLs de las APIs
-  private jsonPlaceholderUrl = 'https://jsonplaceholder.typicode.com/products'; // Ejemplo, cambia a un endpoint real
+  // API URL
   private mockApiUrl = 'https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products';
 
   constructor(
@@ -22,6 +22,18 @@ export class ProductService {
     this.initDB();
   }
    
+  // ------------------------------------------------------------------------------------------
+  // @ Accessors
+  // ------------------------------------------------------------------------------------------
+  
+  set noMoreProducts(value: boolean) {
+    this._noMoreProducts.next(value);
+  }
+
+  get noMoreProducts$(): Observable<boolean> {
+    return this._noMoreProducts.asObservable();
+  }
+
   // ------------------------------------------------------------------------------------------
   // @ Private Methods
   // ------------------------------------------------------------------------------------------
@@ -58,7 +70,7 @@ export class ProductService {
     return of();
 
   }
-  
+
   // ------------------------------------------------------------------------------------------
   // @ Indexed Database Methods (CRUD)
   // ------------------------------------------------------------------------------------------
@@ -74,8 +86,12 @@ export class ProductService {
         // Calcular el índice de inicio y el índice final
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
-  
-        // Devolver solo los productos dentro del rango
+        
+        if (products.slice(startIndex, endIndex).length === 0) {
+          this.noMoreProducts = true;
+        }
+
+        // Return only products in the range
         return products.slice(startIndex, endIndex);
       }),
       catchError(error => {
@@ -131,7 +147,6 @@ export class ProductService {
     }
 
     // console.log(productId)
-
     return from(this.db.delete('products', productId)).pipe(
       catchError(error => {
         return throwError(() => error);

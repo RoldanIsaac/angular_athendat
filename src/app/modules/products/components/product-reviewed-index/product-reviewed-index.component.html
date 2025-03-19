@@ -22,8 +22,6 @@
 					<app-product-card *ngFor="let product of products$ | async; trackBy: trackByProductId"
 						[product]="product"
 						[parent]="'reviewed'"
-						(approveEmit)="approveProduct($event)"
-						(rejectEmit)="approveProduct($event)"
 						(detailsEmit)="openDetailsDialog($event)"
 						(deleteEmit)="deleteProduct($event)"
 					></app-product-card>

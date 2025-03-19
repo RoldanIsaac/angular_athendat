@@ -53,7 +53,6 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 		this._unsubscribeAll.complete()
 	}
 
-
 	// -----------------------------------------------------------------------------------------------------
 	// @ Private Methods
 	// -----------------------------------------------------------------------------------------------------
@@ -74,10 +73,18 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	// @ Public Methods
 	// -----------------------------------------------------------------------------------------------------
 
+	/**
+	 * @description
+	 * Using the product id as unique identifier
+	 */
 	trackByProductId(index: number, product: any): number {
 		return product.id;  // Using the product id as unique identifier
-	 }
+	}
 
+	/**
+	 * @description
+	 * For each product classified, store in db and remove from API list´s products
+	 */
 	dispatchProducts(): void {
 		// console.log(this.currentSelectedProducts);
 		this.currentSelectedProducts.forEach((product) => {
@@ -94,10 +101,16 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 		this.currentSelectedProducts = [];
 	}
 
+	/**
+	 * @description
+	 */
 	approveProduct(product: Product): void {
 		this.updateProductStatus(product, 'approved');
 	}
-	
+
+	/**
+	 * @description
+	 */
 	rejectProduct(product: Product): void {
 		this.updateProductStatus(product, 'rejected');
 	}

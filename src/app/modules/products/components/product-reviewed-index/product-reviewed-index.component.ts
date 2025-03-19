@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, viewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subject, Observable, take } from 'rxjs';
+import { Subject, Observable, take, takeUntil } from 'rxjs';
 import { changeProductStatus } from '../../states/product.action';
 import { Product } from '../../states/product.model';
 import * as ProductActions from "../.././states/product.action"
@@ -10,6 +10,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { DialogService } from '../../../../services/dialog.service';
 import { DbProductState } from '../../states/product.reducer';
+import { ProductService } from '../../product.service';
 
 @Component({
   selector: 'app-product-reviewed-index',
@@ -33,8 +34,10 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 
 	page: number = 1;
 	limit: number = 7;
+	noMoreProducts: boolean = false;
 
 	constructor(
+		private _productService: ProductService,
 		private store: Store,
     	private _dialogService: DialogService,
 		private _cdRef: ChangeDetectorRef,
@@ -50,6 +53,15 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 		this.error = this.store.pipe(select(selectStoreProductError));
 
 		this.loadProducts();
+
+		// Track if there is no more products on the db
+		this._productService.noMoreProducts$
+		.pipe(
+			takeUntil(this._unsubscribeAll)
+		)
+		.subscribe((value) => {
+			this.noMoreProducts = value;
+		})
 	}
 
 	ngAfterViewInit(): void {
@@ -57,7 +69,12 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	 }
 
 	ngOnDestroy(): void {
+		// Restore no more products value
+		this._productService.noMoreProducts = false;
+
+		// Restore products in store to 7
 		this.store.dispatch(ProductActions.restoreStoreProducts());
+
 		this._unsubscribeAll.next(null);
 		this._unsubscribeAll.complete()
 	}
@@ -66,31 +83,44 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	// @ Public Methods
 	// -----------------------------------------------------------------------------------------------------
 
+	/**
+	 * @description
+	 * Using the product id as unique identifier
+	 */
 	trackByProductId(index: number, product: any): number {
-		return product.id;  // Using the product id as unique identifier
+		return product.id; 
 	}
 
+	/**
+	 * @description
+	 * Load stored products in db by dispatching a store action with current page and product limit
+	 */
 	loadProducts(): void {
 		this.store.dispatch(ProductActions.loadStoredProducts({ page: this.page, limit: this.limit }));
 		this._cdRef.detectChanges();
 	}
 	
-	/**
-	 * @description
-	 */
-	approveProduct(id: string): void {
-		this.store.dispatch(changeProductStatus({ productId: id, status: 'approved'}))
-	}
+	// /**
+	//  * @description
+	//  * Approve the product by changing its status to 'approved' and dispatching an action 
+ 	//  * to update the state in the store.
+	//  */
+	// approveProduct(id: string): void {
+	// 	this.store.dispatch(changeProductStatus({ productId: id, status: 'approved'}))
+	// }
 
-	/**
-	 * @description
-	 */
-	rejectProduct(id: string): void {
-		this.store.dispatch(changeProductStatus({ productId: id, status: 'rejected'}))
-	}
+	// /**
+	//  * @description
+	//  * Reject the product by changing its status to 'rejected' and dispatching an action 
+   //  * to update the state in the store.
+	//  */
+	// rejectProduct(id: string): void {
+	// 	this.store.dispatch(changeProductStatus({ productId: id, status: 'rejected'}))
+	// }
   	
 	/**
 	 * @description
+	 * Open a modal dialog to show the product details.
 	 */
 	openDetailsDialog(product: Product) {
 		this._dialogService.openModal(this.detailsDialog, product);
@@ -98,6 +128,7 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 
 	/**
 	 * @description
+	 * Delete the product from the database by dispatching an action to remove it.
 	 */
 	deleteProduct(product: Product) {
 		this.store.dispatch(ProductActions.deleteDbProduct({ productId: product.id }));
@@ -111,7 +142,7 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 		const container = event.target as HTMLElement;
 		// const container = event.target;
 		const isBottom = container.scrollHeight === container.scrollTop + container.clientHeight;
-		if (isBottom) {
+		if (isBottom && !this.noMoreProducts) {
 			this.page++;
 			this.loadProducts()
 		};
