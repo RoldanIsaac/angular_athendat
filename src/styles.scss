@@ -37,18 +37,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .sidebar-item{
+  display: flex;
+  align-items: center;
 	color: gray;
 	border-radius: 4px;
 	min-width: 100% !important;
 	height: 36px;
 	position: relative;
 	line-height: 36px;
+  font-size: 14px;
+  gap: .2rem;
 	padding: 0 10px 0 10px;
 	transition: all 0.2s ease;
 	&:hover{
 		color: rgb(255, 115, 0);
 		background-color: rgb(247, 237, 217);
 	}
+  > mat-icon svg {
+    width: 80%;
+  }
+  > mat-icon svg path {
+    color: gray;
+    stroke: gray;
+  }
 }
 
 .products-container {

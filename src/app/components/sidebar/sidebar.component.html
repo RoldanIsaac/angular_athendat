@@ -1,8 +1,17 @@
 <div class="sidebar">
 
    <!-- Navigation items -->
-   <a routerLink="/app/home" class="sidebar-item">Home</a>
-   <a routerLink="/app/unreviewed" class="sidebar-item">Unreviewed Products</a>
-   <a routerLink="/app/reviewed" class="sidebar-item">Reviewed Products</a>
+   <a routerLink="/app/home" class="sidebar-item">
+      <mat-icon *ngIf="isIcon" svgIcon="home"></mat-icon>
+      Home
+   </a>
+   <a routerLink="/app/unreviewed" class="sidebar-item">
+      <mat-icon *ngIf="isIcon" svgIcon="product-loading"></mat-icon>
+      Unreviewed Products
+   </a>
+   <a routerLink="/app/reviewed" class="sidebar-item">
+      <mat-icon *ngIf="isIcon" svgIcon="security-check"></mat-icon>
+      Reviewed Products
+   </a>
    
 </div>

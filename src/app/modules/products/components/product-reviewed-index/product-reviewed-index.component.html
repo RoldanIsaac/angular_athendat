@@ -20,7 +20,7 @@
 					matTooltip="Clear filters"
 					[matTooltipPosition]="positionOptions[2]"
 					>
-					<mat-icon *ngIf="isIcon" svgIcon="clean" class="clear-filters"></mat-icon>
+					<mat-icon *ngIf="isIcon" svgIcon="clean"></mat-icon>
 				</button>
 	
 				<span class="text-gray-500 font-medium"> 	Page: {{ page }} | Total: {{ (products$ | async)?.length }} </span>
