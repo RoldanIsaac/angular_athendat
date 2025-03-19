@@ -10,7 +10,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { DialogService } from '../../../../services/dialog.service';
 import { DbProductState } from '../../states/product.reducer';
-import { ProductService } from '../../product.service';
+import { ProductService } from '../../services/product.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';

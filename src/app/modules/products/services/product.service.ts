@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, from, map, Observable, of, Subject, tap, throwError } from 'rxjs';
-import { Product } from './states/product.model';
+import { Product } from '../states/product.model';
 import { openDB, IDBPDatabase } from 'idb';
+import { AdapterService } from './adapter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,13 @@ export class ProductService {
   private dbVersion = 1;
   private db: IDBPDatabase | undefined;
   private _noMoreProducts: Subject<boolean> = new Subject<boolean>();
+  private _productAdapter = inject(AdapterService)
+  private _http = inject(HttpClient)
 
   // API URL
   private mockApiUrl = 'https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products';
 
-  constructor(
-    private _http: HttpClient
-  ) { 
+  constructor() { 
     this.initDB();
   }
    
@@ -55,7 +56,10 @@ export class ProductService {
 
   // Get MockAPI products
   getMockApiProducts(): Observable<any[]> {
-    return this._http.get<any[]>(this.mockApiUrl);
+    // return this._http.get<any[]>(this.mockApiUrl);
+    return this._http.get<any[]>(this.mockApiUrl).pipe(
+      map((data) => this._productAdapter.adaptList(data))
+    );
   }
 
   // Change product status

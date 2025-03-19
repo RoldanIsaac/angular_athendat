@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { ProductService } from '../../product.service';
+import { ProductService } from '../../services/product.service';
 import { changeProductStatus } from '../../states/product.action';
 import * as ProductActions from "../.././states/product.action"
 import { HttpClient } from '@angular/common/http';
@@ -67,7 +67,6 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 			this.currentSelectedProducts[index] = { ...product, status };
 		}
 	}
-
 
 	// -----------------------------------------------------------------------------------------------------
 	// @ Public Methods
