@@ -5,7 +5,7 @@ import { changeProductStatus } from '../../states/product.action';
 import { Product } from '../../states/product.model';
 import * as ProductActions from "../.././states/product.action"
 import { selectAllStoredProducts, selectStoreProductLoading, selectStoreProductError } from '../../states/product.selector';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, NgFor } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { DialogService } from '../../../../services/dialog.service';
@@ -14,10 +14,11 @@ import { DbProductState } from '../../states/product.reducer';
 @Component({
   selector: 'app-product-reviewed-index',
 	imports: [
+		NgFor,
 		NgIf,
 		AsyncPipe,
 		ProductCardComponent,
-    ProductDetailsComponent,
+    	ProductDetailsComponent,
 	],
   templateUrl: './product-reviewed-index.component.html',
   styleUrl: './product-reviewed-index.component.scss'
@@ -56,6 +57,7 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	 }
 
 	ngOnDestroy(): void {
+		this.store.dispatch(ProductActions.restoreStoreProducts());
 		this._unsubscribeAll.next(null);
 		this._unsubscribeAll.complete()
 	}
@@ -64,9 +66,12 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	// @ Public Methods
 	// -----------------------------------------------------------------------------------------------------
 
+	trackByProductId(index: number, product: any): number {
+		return product.id;  // Using the product id as unique identifier
+	}
+
 	loadProducts(): void {
 		this.store.dispatch(ProductActions.loadStoredProducts({ page: this.page, limit: this.limit }));
-		this.page++;
 		this._cdRef.detectChanges();
 	}
 	
@@ -95,7 +100,7 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	 * @description
 	 */
 	deleteProduct(product: Product) {
-		this.store.dispatch(ProductActions.deleteProduct({ productId: product.id }));
+		this.store.dispatch(ProductActions.deleteDbProduct({ productId: product.id }));
 	}
 
 	/**
@@ -106,6 +111,9 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 		const container = event.target as HTMLElement;
 		// const container = event.target;
 		const isBottom = container.scrollHeight === container.scrollTop + container.clientHeight;
-		if (isBottom) this.loadProducts();
+		if (isBottom) {
+			this.page++;
+			this.loadProducts()
+		};
 	}
 }

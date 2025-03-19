@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { ProductService } from '../../product.service';
 import { changeProductStatus } from '../../states/product.action';
@@ -7,13 +7,14 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Product } from '../../states/product.model';
 import { selectAllAPIProducts, selectApiProductError, selectApiProductLoading } from '../../states/product.selector';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
 	selector: 'app-product-unreviewed-index',
 	imports: [
 		NgIf,
+		NgFor,
 		AsyncPipe,
 		ProductCardComponent
 	],
@@ -29,7 +30,8 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	currentSelectedProducts: Product[] = [];
 	
 	constructor(
-		private store: Store
+		private store: Store,
+		private _cdRef: ChangeDetectorRef,
 	) {
 		this.store.dispatch(ProductActions.loadApiProducts())
 		this.products$ = this.store.select(selectAllAPIProducts);
@@ -71,15 +73,21 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	// @ Public Methods
 	// -----------------------------------------------------------------------------------------------------
 
+	trackByProductId(index: number, product: any): number {
+		return product.id;  // Using the product id as unique identifier
+	 }
+
 	dispatchProducts(): void {
-		console.log(this.currentSelectedProducts);
-
-		// Remove from the current api products
-		// this.store.dispatch(changeProductStatus({ productId: id, status: }))
-
-		// Store the selected products
+		// console.log(this.currentSelectedProducts);
 		this.currentSelectedProducts.forEach((product) => {
+			// Store the selected products
 			this.store.dispatch(ProductActions.storeProduct({ product: product }))
+
+			// Remove from the current api products
+			this.store.dispatch(ProductActions.deleteApiProduct({ productId: product.id }))
+
+			// Unmark bug
+			this._cdRef.detectChanges();
 		})
 	}
 

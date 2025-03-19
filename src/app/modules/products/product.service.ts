@@ -58,7 +58,7 @@ export class ProductService {
     return of();
 
   }
-   
+  
   // ------------------------------------------------------------------------------------------
   // @ Indexed Database Methods (CRUD)
   // ------------------------------------------------------------------------------------------
@@ -99,11 +99,18 @@ export class ProductService {
   
   // Store single product
   storeProduct(product: Product): Observable<any> {
+
+    // Simulate random id
+    const _product = {
+      id: Math.floor(Math.random() * 1000),
+      ...product
+    }
+
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));
     }
 
-    return from(this.db.put('products', product)).pipe(
+    return from(this.db.put('products', _product)).pipe(
       catchError(error => {
         return throwError(() => error);
       })
@@ -118,7 +125,7 @@ export class ProductService {
   // }
 
   // Delete product
-  deleteProduct(productId: string): Observable<void> {
+  deleteDbProduct(productId: string): Observable<void> {
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));
     }

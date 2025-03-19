@@ -19,18 +19,14 @@
 			} @else {
 				<div class="products-container">
 
-					@for (product of products$ | async; track $index) {
-
-						<app-product-card
-							[product]="product"
-							[parent]="'reviewed'"
-							(approveEmit)="approveProduct($event)"
-							(rejectEmit)="approveProduct($event)"
-							(detailsEmit)="openDetailsDialog($event)"
-							(deleteEmit)="deleteProduct($event)"
-						></app-product-card>
-
-					}
+					<app-product-card *ngFor="let product of products$ | async; trackBy: trackByProductId"
+						[product]="product"
+						[parent]="'reviewed'"
+						(approveEmit)="approveProduct($event)"
+						(rejectEmit)="approveProduct($event)"
+						(detailsEmit)="openDetailsDialog($event)"
+						(deleteEmit)="deleteProduct($event)"
+					></app-product-card>
 
 					@if (isLoading$ | async ) {
 						<span class="loader-dual"></span>

@@ -59,11 +59,11 @@ export const initialApiProductState: ApiProductState = {
 	  error: errorMessage
 	})),
 
-	// // Delete
-	// on(ProductActions.deleteProductSuccess, (state, { productId }) => ({
-	// 	...state,
-	// 	products: state.dbProducts.filter(product => product.id !== productId)
-	// })),
+	// Delete
+	on(ProductActions.deleteApiProduct, (state, { productId }) => ({
+		...state,
+		products: state.products.filter(product => product.id !== productId)
+	})),
 	
 	// Change Status
 	on(ProductActions.changeProductStatusSuccess, (state, { productId, status }) => ({
@@ -85,7 +85,12 @@ export const initialApiProductState: ApiProductState = {
 	on(ProductActions.loadStoredProductsSuccess, (state, { products }) => ({
 	  ...state,
 	  loading: false,
-	  products: [...state.products, ...products],
+	  products: [
+		...state.products,
+		...products.filter(product => 
+		  !state.products.some(existingProduct => existingProduct.id === product.id)
+		),
+	 ],
 	})),
 	on(ProductActions.loadStoredProductsFailure, (state, { errorMessage }) => ({
 	  ...state,
@@ -93,8 +98,15 @@ export const initialApiProductState: ApiProductState = {
 	  error: errorMessage
 	})),
 
+	// Restore
+	on(ProductActions.restoreStoreProducts, (state) => ({
+		...state,
+		loading: false,
+		products: state.products.slice(0, 7), 
+	})),
+
 	// Delete
-	on(ProductActions.deleteProductSuccess, (state, { productId }) => ({
+	on(ProductActions.deleteDbProductSuccess, (state, { productId }) => ({
 		...state,
 		products: state.products.filter(product => product.id !== productId)
 	})),

@@ -75,17 +75,20 @@ export class ProductEffect {
       )
    );
 
-   // Delete
-   deleteProduct$ = createEffect(() =>
+   // Delete From Api List
+      // No effect required
+
+   // Delete From DB
+   deleteDbProduct$ = createEffect(() =>
       this._actions$.pipe(
-      ofType(ProductActions.deleteProduct),
+      ofType(ProductActions.deleteDbProduct),
       switchMap(action =>
-         this._productService.deleteProduct(action.productId).pipe(
-            map(() => ProductActions.deleteProductSuccess({ productId: action.productId })),
+         this._productService.deleteDbProduct(action.productId).pipe(
+            map(() => ProductActions.deleteDbProductSuccess({ productId: action.productId })),
             // catchError(error => ProductActions.deleteProductFailure({ error }))
             catchError((error: { message: string }) => 
                of(
-                  ProductActions.deleteProductFailure({
+                  ProductActions.deleteDbProductFailure({
                      errorMessage: 'Fail to delete product'
                   })
                )
