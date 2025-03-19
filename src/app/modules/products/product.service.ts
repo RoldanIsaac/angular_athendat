@@ -23,6 +23,11 @@ export class ProductService {
     return this.http.get<any[]>(`https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products`);
   }
 
+  // Obtener productos de MockAPI
+  getStoredProducts(): Observable<any[]> {
+    return this.http.get<any[]>(`https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products`);
+  }
+
   deleteProduct(productId: string): Observable<void> {
     console.log(productId)
     return of();

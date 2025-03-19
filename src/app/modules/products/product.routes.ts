@@ -4,11 +4,12 @@ import { ProductReviewedIndexComponent } from "./components/product-reviewed-ind
 
 export default [
     { 
-        path     : '',     
-        component: ProductUnreviewedIndexComponent 
-    },
-    { 
         path     : 'reviewed',     
         component: ProductReviewedIndexComponent 
     },
+    { 
+        path     : 'unreviewed',     
+        component: ProductUnreviewedIndexComponent 
+    },
+
 ] as Routes;

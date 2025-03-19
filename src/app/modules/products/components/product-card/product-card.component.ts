@@ -35,7 +35,7 @@ export class ProductCardComponent implements OnInit {
   approve: boolean = false;
   reject: boolean = false;
 
-  iconsUrl = "icons/sho/round-stroke"
+  iconsUrl = "icons/round-stroke"
   isIcon: boolean = false;
   actionIconNames = [
     'delete-02',

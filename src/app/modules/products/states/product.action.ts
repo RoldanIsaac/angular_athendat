@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Product } from './product.model';
 
 // ------------------------------------------------------------------------------------------
-// @ Load Products
+// @ Load Api Products
 // ------------------------------------------------------------------------------------------
 export const loadProducts = createAction('[Product] Load Products');
 export const loadProductsSuccess = createAction(
@@ -11,6 +11,32 @@ export const loadProductsSuccess = createAction(
 );
 export const loadProductsFailure = createAction(
    '[Product] Load Products Failure',
+   props<{ errorMessage: string }>()
+);
+
+// ------------------------------------------------------------------------------------------
+// @ Load Stored Products
+// ------------------------------------------------------------------------------------------
+export const loadStoredProducts = createAction('[Product] Load Stored Products');
+export const loadStoredProductsSuccess = createAction(
+   '[Product] Load Stored Products Success', 
+   props<{ products: Product[] }>()
+);
+export const loadStoredProductsFailure = createAction(
+   '[Product] Load Stored Products Failure',
+   props<{ errorMessage: string }>()
+);
+
+// ------------------------------------------------------------------------------------------
+// @ Store Product
+// ------------------------------------------------------------------------------------------
+export const storeProduct = createAction('[Product] Store Product');
+export const storeProductSuccess = createAction(
+   '[Product] Store Product Success', 
+   props<{ product: Product }>()
+);
+export const storeProductFailure = createAction(
+   '[Product] store Product Failure',
    props<{ errorMessage: string }>()
 );
 

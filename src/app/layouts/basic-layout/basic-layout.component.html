@@ -1,0 +1,30 @@
+<div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
+
+	<mat-drawer-container class="h-screen" autosize>
+
+		<!-- Sidebar -->
+		<mat-drawer #drawer mode="side" [opened]="true" >
+			<app-sidebar></app-sidebar>
+		</mat-drawer>
+
+		<!-- Drawer content -->
+		<mat-drawer-content class="flex flex-col">
+
+			<div>
+				<button type="button" mat-button (click)="drawer.toggle()">
+					Toggle sidenav
+				</button>
+			</div>
+
+			<!-- Render views -->
+			<div class="flex-auto p-2 sm:p-4">
+					<!-- CONTENT GOES HERE -->
+					<router-outlet></router-outlet> 
+			</div>
+
+
+		</mat-drawer-content>
+	
+	</mat-drawer-container>
+ 
+</div>

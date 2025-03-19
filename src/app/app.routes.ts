@@ -1,42 +1,33 @@
 import { Routes } from '@angular/router';
-import { ProductUnreviewedIndexComponent } from './modules/products/components/product-unreviewed-index/product-unreviewed-index.component';
+import { BasicLayoutComponent } from './layouts/basic-layout/basic-layout.component';
+import { HomeComponent } from './modules/home/home.component';
 
 export const routes: Routes = [
-
    { 
       path: '',
       pathMatch: 'full',
-      redirectTo: 'login'
+      redirectTo: 'app'
    },
-
-   // { 
-   //    path: 'empty',
-   //    component: LayoutComponent,
-   //    data: {
-   //       layout: 'empty'
-   //    }
-   // },
-
    { 
-      path: 'login',
-      component: ProductUnreviewedIndexComponent,
-      data: {
-         layout: 'empty'
-      }
+      path: 'app',
+      component: BasicLayoutComponent,
+      children: [
+         { 
+               path: '', 
+               loadChildren: () => import('./modules/products/product.routes')
+         },
+      ]
+   },
+   { 
+      path: 'app/home',
+      component: BasicLayoutComponent,
+      children: [
+         { 
+               path: '', 
+               component: HomeComponent,
+         },
+      ]
    },
 
-   // { 
-   //    path: 'basic',
-   //    component: LayoutComponent,
-   //    data: {
-   //       layout: 'basic'
-   //    },
-   //    children: [
-   //       { 
-   //           path: '', 
-   //           loadChildren: () => import('app/modules/products/product.routes')
-   //       },
-   //   ]
-   // },
 ];
 

@@ -35,6 +35,26 @@ export class ProductEffect {
       )
    );
 
+   // Load Stored
+   loadStoredProducts$ = createEffect(() =>
+      this._actions$.pipe(
+         ofType(ProductActions.loadStoredProducts),
+         switchMap(() =>
+            this._productService.getStoredProducts().pipe(
+               map(products => ProductActions.loadStoredProductsSuccess({ products })),
+               // catchError(error => ProductActions.loadProductsFailure({ error }))
+               catchError((error: { message: string }) => 
+                  of(
+                     ProductActions.loadStoredProductsFailure({
+                        errorMessage: 'Fail to load stored products'
+                     })
+                  )
+               )
+            )
+         )
+      )
+   );
+
    // Delete
    deleteProduct$ = createEffect(() =>
       this._actions$.pipe(

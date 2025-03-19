@@ -1,1 +1,32 @@
-<p>product-details works!</p>
+<div class="m-5 p-5">
+   <div class="product-card-content">
+      <!-- {{ product | json }} -->
+      <h1> {{ product.name }}  | Category: {{ product.category }}</h1>
+      <p> {{ product.description }} </p>
+      <span> {{ product.price | currency }}</span>
+   </div>
+
+   <div>
+   	<!-- Edit -->
+		<button 
+			class="btn btn-primary"
+			type="button" 
+         mat-dialog-close
+			matTooltip="Go to main page"
+			[matTooltipPosition]="positionOptions[2]"
+		>
+			Back
+		</button>
+
+		<!-- Delete -->
+		<!-- <button 
+		    class="btn btn-secondary"
+			type="button"
+			(click)="onReject(product)"
+			matTooltip="Reject this product"
+			[matTooltipPosition]="positionOptions[2]"
+		>
+			Reject
+		</button> -->
+   </div>
+</div>

@@ -9,8 +9,22 @@
 
 	<div 
 		class="product-card-action" 
-		*ngIf="product.status.toLowerCase() === 'approved' || product.status.toLowerCase() === 'rejected'"
+		*ngIf="product.status.toLowerCase() !== 'approved' || product.status.toLowerCase() !== 'rejected'"
 	>
+		<mat-checkbox
+			[(ngModel)]="approve"
+			(change)="onApprove(product)"
+			>
+			Approve
+		</mat-checkbox>
+		<mat-checkbox
+			[(ngModel)]="reject"
+			(change)="onReject(product)"
+			>
+			Reject
+		</mat-checkbox>
+
+		<!-- *ngIf="product.status.toLowerCase() === 'approved' || product.status.toLowerCase() === 'rejected'" -->
 		<!-- Edit -->
 		<button 
 			mat-icon-button
@@ -34,43 +48,6 @@
 		>
 			<mat-icon *ngIf="isIcon" class="blue-icon" svgIcon="delete-02"></mat-icon>
 		</button>
-	</div>
-	<div 
-		class="product-card-action" 
-		*ngIf="product.status.toLowerCase() !== 'approved' || product.status.toLowerCase() !== 'rejected'"
-	>
-		<mat-checkbox
-			[(ngModel)]="approve"
-			(change)="onApprove(product)"
-			>
-			Approve
-		</mat-checkbox>
-		<mat-checkbox
-			[(ngModel)]="reject"
-			(change)="onReject(product)"
-			>
-			Reject
-		</mat-checkbox>
-		<!-- Edit -->
-		<!-- <button 
-			class="btn btn-primary"
-			type="button" 
-			(click)="onApprove(product)"
-			matTooltip="Approve this product"
-			[matTooltipPosition]="positionOptions[2]"
-		>
-			Approve
-		</button> -->
 
-		<!-- Delete -->
-		<!-- <button 
-		    class="btn btn-secondary"
-			type="button"
-			(click)="onReject(product)"
-			matTooltip="Reject this product"
-			[matTooltipPosition]="positionOptions[2]"
-		>
-			Reject
-		</button> -->
 	</div>
 </div>

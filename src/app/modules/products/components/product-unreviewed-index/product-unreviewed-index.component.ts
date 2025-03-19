@@ -6,7 +6,7 @@ import * as ProductActions from "../.././states/product.action"
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Product } from '../../states/product.model';
-import { selectAllProducts, selectProductError } from '../../states/product.selector';
+import { selectAllProducts, selectProductError, selectProductLoading } from '../../states/product.selector';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 
@@ -22,22 +22,22 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 })
 export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	_unsubscribeAll: Subject<any> = new Subject<any>()
-
-	http = inject(HttpClient);
-	// productApi = inject(ProductApiService);
-	// product$ = this.productApi.getProducts() as Observable<any>;
-	
-	error!: Observable<string | null>
 	products$: Observable<Product[] | null>
+	isLoading!: Observable<boolean>
+	error!: Observable<string | null>
 	
 	constructor(
-		private store: Store<{ cart: { products: any[] }}>
-		// private _productService: ProductService
+		private store: Store
 	) {
 		this.store.dispatch(ProductActions.loadProducts())
 		this.products$ = this.store.select(selectAllProducts);
+		this.isLoading = this.store.select(selectProductLoading);
 		this.error = this.store.select(selectProductError);
 	}
+
+	// -----------------------------------------------------------------------------------------------------
+	// @ Lifecycle Hooks
+	// -----------------------------------------------------------------------------------------------------
 
 	ngOnInit(): void {
 		// this._productService.getMockApiProducts().pipe(
@@ -53,6 +53,10 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 		this._unsubscribeAll.next(null);
 		this._unsubscribeAll.complete()
 	}
+
+	// -----------------------------------------------------------------------------------------------------
+	// @ Public Methods
+	// -----------------------------------------------------------------------------------------------------
 
 	approveProduct(id: string): void {
 		this.store.dispatch(changeProductStatus({ productId: id, status: 'approved'}))

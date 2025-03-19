@@ -1,28 +1,37 @@
-<div class="h-screen min-w-full view-container">
+<div class="view-container">
 
-	<div class="view bg-card rounded m-4">
+	<div class="view bg-card rounded">
 
-		<div>
-			<h1>Unreviewed Products</h1>
+		<!-- Header -->
+		<div class="view-header">
+			<h1 class="text-gray-500 text-2xl">Unreviewed Products</h1>
+			<span class="text-gray-500 font-medium"> Total: {{ (products$ | async).length }} </span>
 		</div>
 
-		@if (error | async ) {
-			something went wrong!
-		} @else {
-			<div class="products-container">
+		<!-- Body -->
+		<div class="view-body">
+			@if (isLoading | async ) {
+				<span class="loader-dual"></span>
 
-				@for (product of products$ | async; track $index) {
+			} @else if (error | async ) {
 
-					<app-product-card
-						[product]="product"
-						(approveEmit)="approveProduct($event)"
-						(rejectEmit)="approveProduct($event)"
-					></app-product-card>
+				Upsss... something went wrong!
 
-				}
-			</div>
-		}
+			} @else {
+				<div class="products-container">
+
+					@for (product of products$ | async; track $index) {
+
+						<app-product-card
+							[product]="product"
+							(approveEmit)="approveProduct($event)"
+							(rejectEmit)="approveProduct($event)"
+						></app-product-card>
+
+					}
+				</div>
+			}
+		</div>
 
 	</div>
-
 </div>
