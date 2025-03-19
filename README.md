@@ -1,59 +1,30 @@
-# AngularAthendat
+---
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.3.
+# AngularAthendat - API Mock
 
-## Development server
+Este proyecto utiliza un servicio mock proporcionado por [MockAPI](https://mockapi.io/) para simular una API. A continuación se detallan las instrucciones para ejecutar y probar la API.
 
-To start a local development server, run:
+## Descripción
 
-```bash
-ng serve
+La API utilizada en este proyecto está alojada en **[MockAPI](https://mockapi.io/)**. Este servicio simula una API que puede ser utilizada para hacer pruebas sin necesidad de tener un backend real.
+
+## Endpoint
+
+La URL base de la API es:
+
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+[https://mockapi.io/your-endpoint](https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products)
 ```
+## Instrucciones para probar la API
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. **Acceder a la App**: La API ya está configurada y funcionando en el servicio de MockAPI. Para acceder, simplemente instalar la app con npm install y luego ng serve
 
-```bash
-ng generate --help
-```
+## Configuración
 
-## Building
+Si necesitas configurar o cambiar cualquier detalle de la URL o los endpoints, abre el archivo product.service.ts, donde se define la URL base.
 
-To build the project run:
+## Notas
 
-```bash
-ng build
-```
+- **MockAPI** ofrece un servicio gratuito con ciertas limitaciones de uso. No se puede hacer que los productos sean generados aleatoriamente en cada petición sino que quedan fijos.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
