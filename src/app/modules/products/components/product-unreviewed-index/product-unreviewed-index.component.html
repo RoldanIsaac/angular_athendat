@@ -1,20 +1,21 @@
 <div class="view-container">
 
-	<div class="view bg-card rounded max-h-[550px]" #scrollContainer style="overflow-y: scroll;">
+	<div class="view bg-card rounded">
 
 		<!-- Header -->
 		<div class="view-header">
 			<h1 class="text-gray-500 text-2xl">Unreviewed Products</h1>
-
 			<button class="btn btn-primary" (click)="dispatchProducts()">Dispatch</button>
 			<span class="text-gray-500 font-medium"> Total: {{ (products$ | async)?.length }} </span>
 		</div>
 
 		<!-- Body -->
-		<div class="view-body">
+		<div class="view-body max-h-[550px]" #scrollContainer style="overflow-y: scroll;">
 			@if (error | async ) {
 
-				Upsss... something went wrong!
+				<div class="m-4">
+					Upsss... something went wrong!
+				</div>
 
 			} @else {
 				<div class="products-container">

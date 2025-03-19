@@ -65,8 +65,9 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	// -----------------------------------------------------------------------------------------------------
 
 	loadProducts(): void {
-		alert(this.page)
 		this.store.dispatch(ProductActions.loadStoredProducts({ page: this.page, limit: this.limit }));
+		this.page++;
+		this._cdRef.detectChanges();
 	}
 	
 	/**
@@ -105,11 +106,6 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 		const container = event.target as HTMLElement;
 		// const container = event.target;
 		const isBottom = container.scrollHeight === container.scrollTop + container.clientHeight;
-
-		if (isBottom) {
-			this.page++;
-			this.loadProducts();
-			this._cdRef.detectChanges();
-		}
+		if (isBottom) this.loadProducts();
 	}
 }

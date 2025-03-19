@@ -1,6 +1,6 @@
 <div class="view-container">
 
-	<div class="view bg-card rounded max-h-[500px]" #scrollContainer style="overflow-y: scroll;">
+	<div class="view bg-card rounded">
 
 		<!-- Header -->
 		<div class="view-header">
@@ -9,10 +9,12 @@
 		</div>
 
 		<!-- Body -->
-		<div class="view-body">
+		<div class="view-body max-h-[500px]" #scrollContainer style="overflow-y: scroll;">
 			@if (error | async ) {
 
-				Upsss... something went wrong!
+				<div class="m-4">
+					Upsss... something went wrong!
+				</div>
 
 			} @else {
 				<div class="products-container">
