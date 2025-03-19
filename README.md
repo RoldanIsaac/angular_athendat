@@ -21,10 +21,10 @@ La URL base de la API es:
 
 ## Configuración
 
-Si necesitas configurar o cambiar cualquier detalle de la URL o los endpoints, abre el archivo donde se define el servicio y ajusta la URL base.
+Si necesitas configurar o cambiar cualquier detalle de la URL o los endpoints, abre el archivo product.service.ts, donde se define la URL base.
 
 ## Notas
 
-- **MockAPI** ofrece un servicio gratuito con ciertas limitaciones de uso. No se pueded hacer que los productos sean random sino que vienen los mismos en cada petición.
+- **MockAPI** ofrece un servicio gratuito con ciertas limitaciones de uso. No se puede hacer que los productos sean generados aleatoriamente en cada petición sino que quedan fijos.
 
 ---
