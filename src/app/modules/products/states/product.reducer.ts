@@ -5,74 +5,105 @@ import { Product } from "./product.model";
 // ------------------------------------------------------------------------------------------
 // @ State
 // ------------------------------------------------------------------------------------------
-export interface ProductState {
-    apiProducts: Product[];
-    dbProducts: Product[];
-    loading: boolean;
-    error: string | null; 
-}
+export interface ApiProductState {
+	products: Product[];
+	loading: boolean;
+	error: string | null;
+ }
+ 
+ export interface DbProductState {
+	products: Product[];
+	loading: boolean;
+	error: string | null;
+ }
+ 
+ export interface AppState {
+	apiProducts: ApiProductState;
+	dbProducts: DbProductState;
+ }
 
 // ------------------------------------------------------------------------------------------
 // @ Initial State
 // ------------------------------------------------------------------------------------------
-export const initialProductState: ProductState = {
-	apiProducts: [],
-	dbProducts: [],
+export const initialApiProductState: ApiProductState = {
+	products: [],
 	loading: false,
-	error: null,
-};
+	error: null
+ };
+ 
+ export const initialDbProductState: DbProductState = {
+	products: [],
+	loading: false,
+	error: null
+ };
 
 // ------------------------------------------------------------------------------------------
-// @ Reducer
+// @ Reducers
 // ------------------------------------------------------------------------------------------
-export const productReducer = createReducer(
-	initialProductState,
-	
-	// Load API
-	on(ProductActions.loadApiProducts, state => ({
-		...state,
-		loading: true
+ export const apiProductReducer = createReducer(
+	initialApiProductState,
+
+	// Load
+	on(ProductActions.loadApiProducts, (state) => ({
+	  ...state,
+	  loading: true
 	})),
 	on(ProductActions.loadApiProductsSuccess, (state, { products }) => ({
-		...state,
-		loading: false,
-		apiProducts: products,
-		error: null
+	  ...state,
+	  loading: false,
+	  products
 	})),
 	on(ProductActions.loadApiProductsFailure, (state, { errorMessage }) => ({
-		...state,
-		loading: false,
-		error: errorMessage
+	  ...state,
+	  loading: false,
+	  error: errorMessage
 	})),
+
+	// // Delete
+	// on(ProductActions.deleteProductSuccess, (state, { productId }) => ({
+	// 	...state,
+	// 	products: state.dbProducts.filter(product => product.id !== productId)
+	// })),
 	
-	// Load Stored
-	on(ProductActions.loadApiProducts, state => ({
+	// Change Status
+	on(ProductActions.changeProductStatusSuccess, (state, { productId, status }) => ({
 		...state,
-		loading: true
+		products: state.products.map(product =>
+		product.id === productId ? { ...product, status } : product
+		)
+	}))
+ );
+
+ export const dbProductReducer = createReducer(
+	initialDbProductState,
+
+	// Load
+	on(ProductActions.loadStoredProducts, (state) => ({
+	  ...state,
+	  loading: true
 	})),
-	on(ProductActions.loadApiProductsSuccess, (state, { products }) => ({
-		...state,
-		loading: false,
-		dbProducts: products,
-		error: null
+	on(ProductActions.loadStoredProductsSuccess, (state, { products }) => ({
+	  ...state,
+	  loading: false,
+	  products
 	})),
-	on(ProductActions.loadApiProductsFailure, (state, { errorMessage }) => ({
-		...state,
-		loading: false,
-		error: errorMessage
+	on(ProductActions.loadStoredProductsFailure, (state, { errorMessage }) => ({
+	  ...state,
+	  loading: false,
+	  error: errorMessage
 	})),
 
 	// Delete
 	on(ProductActions.deleteProductSuccess, (state, { productId }) => ({
 		...state,
-		products: state.dbProducts.filter(product => product.id !== productId)
+		products: state.products.filter(product => product.id !== productId)
 	})),
 
 	// Change Status
-	on(ProductActions.changeProductStatusSuccess, (state, { productId, status }) => ({
-		...state,
-		products: state.apiProducts.map(product =>
-		product.id === productId ? { ...product, status } : product
-		)
-	}))
+	// on(ProductActions.changeProductStatusSuccess, (state, { productId, status }) => ({
+	// 	...state,
+	// 	products: state.products.map(product =>
+	// 		product.id === productId ? { ...product, status } : product
+	// 	)
+	// }))
  );

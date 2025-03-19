@@ -6,7 +6,8 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideHttpClient } from '@angular/common/http';
 import { ProductEffect } from './modules/products/states/product.effects';
-import { productReducer } from './modules/products/states/product.reducer';
+import { apiProductReducer } from './modules/products/states/product.reducer';
+import { dbProductReducer } from './modules/products/states/product.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
 
     // Products NgRx
     provideEffects(ProductEffect),
-    provideState({name: 'product', reducer: productReducer }),
+    provideState({name: 'api_product', reducer: apiProductReducer }),
+    provideState({name: 'db_product', reducer: dbProductReducer }),
   ]
 };

@@ -7,7 +7,7 @@
 			<h1 class="text-gray-500 text-2xl">Unreviewed Products</h1>
 
 			<button class="btn btn-primary" (click)="dispatchProducts()">Dispatch</button>
-			<span class="text-gray-500 font-medium"> Total: {{ (products$ | async).length }} </span>
+			<span class="text-gray-500 font-medium"> Total: {{ (products$ | async)?.length }} </span>
 		</div>
 
 		<!-- Body -->

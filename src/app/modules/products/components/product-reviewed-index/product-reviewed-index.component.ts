@@ -4,7 +4,7 @@ import { Subject, Observable, take } from 'rxjs';
 import { changeProductStatus } from '../../states/product.action';
 import { Product } from '../../states/product.model';
 import * as ProductActions from "../.././states/product.action"
-import { selectAllStoredProducts, selectProductLoading, selectProductError } from '../../states/product.selector';
+import { selectAllStoredProducts, selectStoreProductLoading, selectStoreProductError } from '../../states/product.selector';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
@@ -35,8 +35,8 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	) {
 		this.store.dispatch(ProductActions.loadStoredProducts())
 		this.products$ = this.store.select(selectAllStoredProducts);
-		this.isLoading = this.store.select(selectProductLoading);
-		this.error = this.store.select(selectProductError);
+		this.isLoading = this.store.select(selectStoreProductLoading);
+		this.error = this.store.select(selectStoreProductError);
 	}
 
 	// -----------------------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	approveProduct(id: string): void {
 		this.store.dispatch(changeProductStatus({ productId: id, status: 'approved'}))
 	}
-	
+
 	/**
 	 * @description
 	 */

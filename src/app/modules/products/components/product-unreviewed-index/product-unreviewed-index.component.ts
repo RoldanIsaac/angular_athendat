@@ -6,7 +6,7 @@ import * as ProductActions from "../.././states/product.action"
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Product } from '../../states/product.model';
-import { selectAllAPIProducts, selectProductError, selectProductLoading } from '../../states/product.selector';
+import { selectAllAPIProducts, selectApiProductError, selectApiProductLoading } from '../../states/product.selector';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 
@@ -26,15 +26,15 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	isLoading!: Observable<boolean>
 	error!: Observable<string | null>
 
-	currentSelectedProducts: { id: string, status: 'approved' | 'rejected' }[] = [];
+	currentSelectedProducts: Product[] = [];
 	
 	constructor(
 		private store: Store
 	) {
 		this.store.dispatch(ProductActions.loadApiProducts())
 		this.products$ = this.store.select(selectAllAPIProducts);
-		this.isLoading = this.store.select(selectProductLoading);
-		this.error = this.store.select(selectProductError);
+		this.isLoading = this.store.select(selectApiProductLoading);
+		this.error = this.store.select(selectApiProductError);
 	}
 
 	// -----------------------------------------------------------------------------------------------------
@@ -55,11 +55,11 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	// @ Private Methods
 	// -----------------------------------------------------------------------------------------------------
 
-	private updateProductStatus(productId: string, status: 'approved' | 'rejected'): void {
-		const product = this.currentSelectedProducts.find(_product => _product.id === productId);
+	private updateProductStatus(product: Product, status: 'approved' | 'rejected'): void {
+		const isProduct = this.currentSelectedProducts.find(_product => _product.id === product.id);
 		
-		if (!product) {
-			this.currentSelectedProducts.push({ id: productId, status });
+		if (!isProduct) {
+			this.currentSelectedProducts.push({ ...product, status });
 		} else {
 			const index = this.currentSelectedProducts.indexOf(product);
 			this.currentSelectedProducts[index] = { ...product, status };
@@ -76,14 +76,18 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 
 		// Remove from the current api products
 		// this.store.dispatch(changeProductStatus({ productId: id, status: }))
-		// this.store.dispatch(changeProductStatus({ productId: id, status: 'rejected'}))
+
+		// Store the selected products
+		this.currentSelectedProducts.forEach((product) => {
+			this.store.dispatch(ProductActions.storeProduct({ product: product }))
+		})
 	}
 
-	approveProduct(product: { id: string }): void {
-		this.updateProductStatus(product.id, 'approved');
+	approveProduct(product: Product): void {
+		this.updateProductStatus(product, 'approved');
 	}
 	
-	rejectProduct(product: { id: string }): void {
-		this.updateProductStatus(product.id, 'rejected');
+	rejectProduct(product: Product): void {
+		this.updateProductStatus(product, 'rejected');
 	}
 }
