@@ -13,6 +13,9 @@ import { DbProductState } from '../../states/product.reducer';
 import { ProductService } from '../../product.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-reviewed-index',
@@ -20,10 +23,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 		NgFor,
 		NgIf,
 		AsyncPipe,
+		MatTooltipModule,
 		ProductCardComponent,
     	ProductDetailsComponent,
 		MatSelectModule,
-		MatFormFieldModule
+		MatFormFieldModule,
+		MatIconModule,
 	],
   templateUrl: './product-reviewed-index.component.html',
   styleUrl: './product-reviewed-index.component.scss'
@@ -42,11 +47,21 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	limit: number = 7;
 	noMoreProducts: boolean = false;
 
+	iconsUrl = "icons/round-stroke"
+	isIcon: boolean = false;
+	actionIconNames = [
+	  'clean',
+	]
+ 
+	positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
+
 	constructor(
 		private _productService: ProductService,
 		private store: Store,
     	private _dialogService: DialogService,
 		private _cdRef: ChangeDetectorRef,
+		private _matIconRegistry: MatIconRegistry,
+		private _domSanitizer: DomSanitizer
 	) { }
 
 	// -----------------------------------------------------------------------------------------------------
@@ -68,6 +83,16 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 		.subscribe((value) => {
 			this.noMoreProducts = value;
 		})
+
+		// Registering Icons
+		for (let index = 0; index < this.actionIconNames.length; index++) {
+			const iconName = this.actionIconNames[index];
+			
+			this._matIconRegistry.addSvgIcon(iconName, 
+					this._domSanitizer.bypassSecurityTrustResourceUrl(`${this.iconsUrl}/${iconName}.svg`)
+			);
+		}
+		this.isIcon = true
 	}
 
 	ngAfterViewInit(): void {
@@ -99,7 +124,11 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 
 	onStatusChange(event: any): void {
 		console.log('Selected Status:', this.currentStatus); 
-	 }
+	}
+
+	clearFilters() {
+		this.currentStatus = '';
+	}
 	 
 	/**
 	 * @description

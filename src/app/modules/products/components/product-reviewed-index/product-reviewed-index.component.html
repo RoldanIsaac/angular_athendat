@@ -6,15 +6,25 @@
 		<div class="view-header">
 			<h1 class="text-gray-500 text-2xl">Reviewed Products </h1>
 
-			<mat-form-field appearance="fill">
-				<mat-label>Product Status</mat-label>
-				<mat-select [(value)]="currentStatus">
-				  <mat-option value="approved">Approved</mat-option>
-				  <mat-option value="rejected">Rejected</mat-option>
-				</mat-select>
-			 </mat-form-field>
-
-			<span class="text-gray-500 font-medium"> 	Page: {{ page }} | Total: {{ (products$ | async)?.length }} </span>
+			<div class="space-x-6">
+				<mat-form-field appearance="fill">
+					<mat-label>Product Status</mat-label>
+					<mat-select [(value)]="currentStatus">
+					  <mat-option value="approved">Approved</mat-option>
+					  <mat-option value="rejected">Rejected</mat-option>
+					</mat-select>
+				 </mat-form-field>
+	
+				 <button style="cursor: pointer;"
+					(click)="clearFilters()"
+					matTooltip="Clear filters"
+					[matTooltipPosition]="positionOptions[2]"
+					>
+					<mat-icon *ngIf="isIcon" svgIcon="clean" class="clear-filters"></mat-icon>
+				</button>
+	
+				<span class="text-gray-500 font-medium"> 	Page: {{ page }} | Total: {{ (products$ | async)?.length }} </span>
+			</div>
 		</div>
 
 		<!-- Body -->

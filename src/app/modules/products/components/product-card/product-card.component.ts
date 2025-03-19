@@ -53,7 +53,7 @@ export class ProductCardComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // Registering Huge Icons
+    // Registering Icons
     for (let index = 0; index < this.actionIconNames.length; index++) {
       const iconName = this.actionIconNames[index];
       
