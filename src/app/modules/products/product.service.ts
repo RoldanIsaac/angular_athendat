@@ -64,7 +64,7 @@ export class ProductService {
   // ------------------------------------------------------------------------------------------
 
   // Get all products
-  getProducts(): Observable<Product[]> {
+  getProducts(page: number, limit: number): Observable<Product[]> {
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));
     }

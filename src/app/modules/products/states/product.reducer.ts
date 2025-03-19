@@ -85,7 +85,7 @@ export const initialApiProductState: ApiProductState = {
 	on(ProductActions.loadStoredProductsSuccess, (state, { products }) => ({
 	  ...state,
 	  loading: false,
-	  products
+	  products: [...state.products, ...products],
 	})),
 	on(ProductActions.loadStoredProductsFailure, (state, { errorMessage }) => ({
 	  ...state,

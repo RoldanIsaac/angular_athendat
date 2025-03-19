@@ -17,7 +17,10 @@ export const loadApiProductsFailure = createAction(
 // ------------------------------------------------------------------------------------------
 // @ Load Stored Products
 // ------------------------------------------------------------------------------------------
-export const loadStoredProducts = createAction('[Product] Load Stored Products');
+export const loadStoredProducts = createAction(
+   '[Product] Load Stored Products',
+   props<{ page: number, limit: number }>()  
+);
 export const loadStoredProductsSuccess = createAction(
    '[Product] Load Stored Products Success', 
    props<{ products: Product[] }>()

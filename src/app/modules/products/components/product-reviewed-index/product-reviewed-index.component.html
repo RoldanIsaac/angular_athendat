@@ -1,19 +1,16 @@
 <div class="view-container">
 
-	<div class="view bg-card rounded">
+	<div class="view bg-card rounded max-h-[500px]" #scrollContainer style="overflow-y: scroll;">
 
 		<!-- Header -->
 		<div class="view-header">
-			<h1 class="text-gray-500 text-2xl">Reviewed Products</h1>
+			<h1 class="text-gray-500 text-2xl">Reviewed Products </h1>
 			<span class="text-gray-500 font-medium"> Total: {{ (products$ | async)?.length }} </span>
 		</div>
 
 		<!-- Body -->
 		<div class="view-body">
-			@if (isLoading | async ) {
-				<span class="loader-dual"></span>
-
-			} @else if (error | async ) {
+			@if (error | async ) {
 
 				Upsss... something went wrong!
 
@@ -31,9 +28,15 @@
 						></app-product-card>
 
 					}
+
+					@if (isLoading$ | async ) {
+						<span class="loader-dual"></span>
+					}
 				</div>
 			}
 		</div>
+
+		page: {{ page }}
 
 	</div>
 </div>

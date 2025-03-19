@@ -39,8 +39,8 @@ export class ProductEffect {
    loadStoredProducts$ = createEffect(() =>
       this._actions$.pipe(
          ofType(ProductActions.loadStoredProducts),
-         switchMap(() =>
-            this._productService.getProducts().pipe(
+         switchMap(action =>
+            this._productService.getProducts(action.page, action.limit).pipe(
                map(products => ProductActions.loadStoredProductsSuccess({ products })),
                // catchError(error => ProductActions.loadProductsFailure({ error }))
                catchError((error: { message: string }) => 
