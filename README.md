@@ -1,6 +1,10 @@
 ---
 
-# AngularAthendat - API Mock
+# AngularAthendat
+
+Para iniciar la app y acceder, simplemente instalar los paquetes de Node con el comando npm install y luego levantar el servidor local con ng serve.
+
+## API Mock
 
 Este proyecto utiliza un servicio mock proporcionado por [MockAPI](https://mockapi.io/) para simular una API. A continuación se detallan las instrucciones para ejecutar y probar la API.
 
@@ -17,7 +21,7 @@ La URL base de la API es:
 ```
 ## Instrucciones para probar la API
 
-1. **Acceder a la App**: La API ya está configurada y funcionando en el servicio de MockAPI. Para acceder, simplemente instalar la app con npm install y luego ng serve
+1. **Luego de acceder a la App**: La API ya está configurada y funcionando en el servicio de MockAPI.
 
 ## Configuración
 
