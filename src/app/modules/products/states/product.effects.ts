@@ -98,23 +98,23 @@ export class ProductEffect {
       )
    );
 
-   // Change status
-   changeProductStatus$ = createEffect(() =>
-      this._actions$.pipe(
-      ofType(ProductActions.changeProductStatus),
-      switchMap(action =>
-         this._productService.changeProductStatus(action.productId, action.status).pipe(
-            map(() => ProductActions.changeProductStatusSuccess({ productId: action.productId, status: action.status })),
-            // catchError(error => ProductActions.changeProductStatusFailure({ error }))
-            catchError((error: { message: string }) => 
-               of(
-                  ProductActions.changeProductStatusFailure({
-                     errorMessage: 'Fail to change product status'
-                  })
-               )
-            )
-         )
-      )
-      )
-   );
+   // Change status | Pending | No required
+   // changeProductStatus$ = createEffect(() =>
+   //    this._actions$.pipe(
+   //    ofType(ProductActions.changeProductStatus),
+   //    switchMap(action =>
+   //       this._productService.changeProductStatus(action.productId, action.status).pipe(
+   //          map(() => ProductActions.changeProductStatusSuccess({ productId: action.productId, status: action.status })),
+   //          // catchError(error => ProductActions.changeProductStatusFailure({ error }))
+   //          catchError((error: { message: string }) => 
+   //             of(
+   //                ProductActions.changeProductStatusFailure({
+   //                   errorMessage: 'Fail to change product status'
+   //                })
+   //             )
+   //          )
+   //       )
+   //    )
+   //    )
+   // );
 }

@@ -28,7 +28,7 @@
 						[product]="product"
 						[parent]="'unreviewed'"
 						(approveEmit)="approveProduct($event)"
-						(rejectEmit)="approveProduct($event)"
+						(rejectEmit)="rejectProduct($event)"
 					></app-product-card>
 
 					@if (isLoading$ | async ) {

@@ -53,23 +53,16 @@ export class ProductService {
   // @ Public Methods
   // ------------------------------------------------------------------------------------------
 
-  // JSONPlaceholder
-  // getJsonPlaceholderProducts(): Observable<any[]> {
-  //   return this._http.get<any[]>(`${this.jsonPlaceholderUrl}?_limit=10`);
-  // }
-
   // Get MockAPI products
   getMockApiProducts(): Observable<any[]> {
     return this._http.get<any[]>(this.mockApiUrl);
   }
 
   // Change product status
-  changeProductStatus(productId: string, status: 'approved' | 'rejected'): Observable<void> {
-    // return this.http.patch<void>(`${this.apiUrl}/${productId}`, { status });
-    console.log(productId)
-    return of();
-
-  }
+  // changeProductStatus(productId: string, status: 'approved' | 'rejected'): Observable<void> {
+  //   console.log(productId)
+  //   return of();
+  // }
 
   // ------------------------------------------------------------------------------------------
   // @ Indexed Database Methods (CRUD)
@@ -83,7 +76,7 @@ export class ProductService {
 
     return from(this.db.getAll('products')).pipe(
       map((products: Product[]) => {
-        // Calcular el índice de inicio y el índice final
+        // 
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
         
@@ -152,19 +145,5 @@ export class ProductService {
         return throwError(() => error);
       })
     )
-
-    // return new Observable(observer => {
-    //   if (this.db) {
-    //     this.db.delete('products', productId)
-    //     .then(response => {
-    //       observer.next(response);
-    //       observer.complete()
-    //     })
-    //     .catch(error => {
-    //         observer.error(error);
-    //     }
-    //     )
-    //   }
-    // })
   }
 }

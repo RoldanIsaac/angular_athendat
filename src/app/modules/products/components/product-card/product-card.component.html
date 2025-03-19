@@ -23,6 +23,10 @@
 	</div>
 
 	<div class="product-card-action" *ngIf="parent === 'reviewed'">
+		<span *ngIf="parent === 'reviewed'" class="text-gray-500 text-sm mt-2 px-5"> 
+			Status: {{ product.status }}
+		</span>
+
 		<!-- Details -->
 		<button 
 			mat-icon-button

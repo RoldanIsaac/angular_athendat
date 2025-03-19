@@ -11,6 +11,8 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
 import { DialogService } from '../../../../services/dialog.service';
 import { DbProductState } from '../../states/product.reducer';
 import { ProductService } from '../../product.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
 
 @Component({
   selector: 'app-product-reviewed-index',
@@ -20,6 +22,8 @@ import { ProductService } from '../../product.service';
 		AsyncPipe,
 		ProductCardComponent,
     	ProductDetailsComponent,
+		MatSelectModule,
+		MatFormFieldModule
 	],
   templateUrl: './product-reviewed-index.component.html',
   styleUrl: './product-reviewed-index.component.scss'
@@ -31,6 +35,8 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	isLoading$: Observable<boolean>;
 	error!: Observable<string | null>;
 	detailsDialog = ProductDetailsComponent;
+
+	currentStatus: string = '';
 
 	page: number = 1;
 	limit: number = 7;
@@ -91,6 +97,10 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 		return product.id; 
 	}
 
+	onStatusChange(event: any): void {
+		console.log('Selected Status:', this.currentStatus); 
+	 }
+	 
 	/**
 	 * @description
 	 * Load stored products in db by dispatching a store action with current page and product limit
