@@ -26,7 +26,7 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	isLoading!: Observable<boolean>
 	error!: Observable<string | null>
 
-	currentSelectedProductsIds: { id: number, status: 'approved' | 'rejected' }[] = [];
+	currentSelectedProducts: { id: string, status: 'approved' | 'rejected' }[] = [];
 	
 	constructor(
 		private store: Store
@@ -50,30 +50,40 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 		this._unsubscribeAll.complete()
 	}
 
+
+	// -----------------------------------------------------------------------------------------------------
+	// @ Private Methods
+	// -----------------------------------------------------------------------------------------------------
+
+	private updateProductStatus(productId: string, status: 'approved' | 'rejected'): void {
+		const product = this.currentSelectedProducts.find(_product => _product.id === productId);
+		
+		if (!product) {
+			this.currentSelectedProducts.push({ id: productId, status });
+		} else {
+			const index = this.currentSelectedProducts.indexOf(product);
+			this.currentSelectedProducts[index] = { ...product, status };
+		}
+	}
+
+
 	// -----------------------------------------------------------------------------------------------------
 	// @ Public Methods
 	// -----------------------------------------------------------------------------------------------------
 
 	dispatchProducts(): void {
-		console.log(this.currentSelectedProductsIds);
+		console.log(this.currentSelectedProducts);
 
 		// Remove from the current api products
-
-
-		
-	}
-
-	approveProduct(id: string): void {
-		this.currentSelectedProductsIds.forEach
-		if (!this.currentSelectedProductsIds.includes({ id: id, status: 'approved'})) {
-			this.currentSelectedProductsIds.push(id);
-		}
 		// this.store.dispatch(changeProductStatus({ productId: id, status: }))
+		// this.store.dispatch(changeProductStatus({ productId: id, status: 'rejected'}))
 	}
 
-	rejectProduct(id: string): void {
-		const filteredArr = this.currentSelectedProductsIds.filter(_id => _id !== id);
-		this.currentSelectedProductsIds = filteredArr;
-		// this.store.dispatch(changeProductStatus({ productId: id, status: 'rejected'}))
+	approveProduct(product: { id: string }): void {
+		this.updateProductStatus(product.id, 'approved');
+	}
+	
+	rejectProduct(product: { id: string }): void {
+		this.updateProductStatus(product.id, 'rejected');
 	}
 }
