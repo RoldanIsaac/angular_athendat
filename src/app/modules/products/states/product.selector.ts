@@ -3,9 +3,14 @@ import { ProductState } from "./product.reducer";
 
 export const selectProductState = createFeatureSelector<ProductState>('product');
 
-export const selectAllProducts = createSelector(
+export const selectAllAPIProducts = createSelector(
   selectProductState,
-  (state: ProductState) => state.products
+  (state: ProductState) => state.apiProducts
+);
+
+export const selectAllStoredProducts = createSelector(
+  selectProductState,
+  (state: ProductState) => state.dbProducts
 );
 
 export const selectProductLoading = createSelector(

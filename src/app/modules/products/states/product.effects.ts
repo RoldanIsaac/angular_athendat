@@ -10,23 +10,23 @@ import { ProductService } from "../product.service";
 export class ProductEffect {
    private _actions$ = inject(Actions);
    private _productService = inject(ProductService);
-   private _store = inject(Store);
+   // private _store = inject(Store);
 
    // ------------------------------------------------------------------------------------------
    // @ Effects
    // ------------------------------------------------------------------------------------------
-   // Load
-   loadProducts$ = createEffect(() =>
+   // Load API products
+   loadApiProducts$ = createEffect(() =>
       this._actions$.pipe(
-         ofType(ProductActions.loadProducts),
+         ofType(ProductActions.loadApiProducts),
          switchMap(() =>
             this._productService.getMockApiProducts().pipe(
-               map(products => ProductActions.loadProductsSuccess({ products })),
+               map(products => ProductActions.loadApiProductsSuccess({ products })),
                // catchError(error => ProductActions.loadProductsFailure({ error }))
                catchError((error: { message: string }) => 
                   of(
-                     ProductActions.loadProductsFailure({
-                        errorMessage: 'Fail to load products'
+                     ProductActions.loadApiProductsFailure({
+                        errorMessage: 'Fail to load API products'
                      })
                   )
                )
@@ -35,18 +35,38 @@ export class ProductEffect {
       )
    );
 
-   // Load Stored
+   // Load stored products
    loadStoredProducts$ = createEffect(() =>
       this._actions$.pipe(
          ofType(ProductActions.loadStoredProducts),
          switchMap(() =>
-            this._productService.getStoredProducts().pipe(
+            this._productService.getProducts().pipe(
                map(products => ProductActions.loadStoredProductsSuccess({ products })),
                // catchError(error => ProductActions.loadProductsFailure({ error }))
                catchError((error: { message: string }) => 
                   of(
                      ProductActions.loadStoredProductsFailure({
                         errorMessage: 'Fail to load stored products'
+                     })
+                  )
+               )
+            )
+         )
+      )
+   );
+
+   // Store product
+   storeProduct$ = createEffect(() =>
+      this._actions$.pipe(
+         ofType(ProductActions.storeProduct),
+         switchMap(action =>
+            this._productService.storeProduct(action.product).pipe(
+               map(product => ProductActions.storeProductSuccess({ product })),
+               // catchError(error => ProductActions.storeProductFailure({ error }))
+               catchError((error: { message: string }) => 
+                  of(
+                     ProductActions.storeProductFailure({
+                        errorMessage: 'Fail to store product'
                      })
                   )
                )

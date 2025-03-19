@@ -23,6 +23,7 @@
     "@ngrx/effects": "^19.0.1",
     "@ngrx/store": "^19.0.1",
     "@tailwindcss/postcss": "^4.0.14",
+    "idb": "^8.0.2",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.0.14",

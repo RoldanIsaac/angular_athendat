@@ -30,6 +30,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex-direction: column;
   gap: 2px;
   padding: 1rem 0.5rem 1rem 0.5rem;
+  border-right: solid 1px rgb(46, 51, 60, 0.1);
 }
 
 .sidebar-item{

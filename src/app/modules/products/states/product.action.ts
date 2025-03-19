@@ -4,13 +4,13 @@ import { Product } from './product.model';
 // ------------------------------------------------------------------------------------------
 // @ Load Api Products
 // ------------------------------------------------------------------------------------------
-export const loadProducts = createAction('[Product] Load Products');
-export const loadProductsSuccess = createAction(
-   '[Product] Load Products Success', 
+export const loadApiProducts = createAction('[Product] Load API Products');
+export const loadApiProductsSuccess = createAction(
+   '[Product] Load API Products Success', 
    props<{ products: Product[] }>()
 );
-export const loadProductsFailure = createAction(
-   '[Product] Load Products Failure',
+export const loadApiProductsFailure = createAction(
+   '[Product] Load API Products Failure',
    props<{ errorMessage: string }>()
 );
 
@@ -30,29 +30,16 @@ export const loadStoredProductsFailure = createAction(
 // ------------------------------------------------------------------------------------------
 // @ Store Product
 // ------------------------------------------------------------------------------------------
-export const storeProduct = createAction('[Product] Store Product');
+export const storeProduct = createAction(
+   '[Product] Store Product', 
+   props<{ product: Product }>()
+);
 export const storeProductSuccess = createAction(
    '[Product] Store Product Success', 
    props<{ product: Product }>()
 );
 export const storeProductFailure = createAction(
    '[Product] store Product Failure',
-   props<{ errorMessage: string }>()
-);
-
-// ------------------------------------------------------------------------------------------
-// @ Delete Products
-// ------------------------------------------------------------------------------------------
-export const deleteProduct = createAction(
-   '[Product] Delete Product',
-   props<{ productId: string }>()
-);
-export const deleteProductSuccess = createAction(
-   '[Product] Delete Product Success',
-   props<{ productId: string }>()
-);
-export const deleteProductFailure = createAction(
-   '[Product] Delete Product Failure',
    props<{ errorMessage: string }>()
 );
 
@@ -69,5 +56,21 @@ export const changeProductStatusSuccess = createAction(
 );
 export const changeProductStatusFailure = createAction(
    '[Product] Change Product Status Failure',
+   props<{ errorMessage: string }>()
+);
+
+// ------------------------------------------------------------------------------------------
+// @ Delete Products
+// ------------------------------------------------------------------------------------------
+export const deleteProduct = createAction(
+   '[Product] Delete Product',
+   props<{ productId: string }>()
+);
+export const deleteProductSuccess = createAction(
+   '[Product] Delete Product Success',
+   props<{ productId: string }>()
+);
+export const deleteProductFailure = createAction(
+   '[Product] Delete Product Failure',
    props<{ errorMessage: string }>()
 );
