@@ -5,7 +5,11 @@
 		<!-- Header -->
 		<div class="view-header">
 			<h1 class="text-gray-500 text-2xl">Unreviewed Products</h1>
-			<button class="btn btn-primary" (click)="dispatchProducts()">Dispatch</button>
+			<button 
+				[ngClass]="{'disabled': currentSelectedProducts.length === 0 }"
+				class="btn btn-primary" (click)="dispatchProducts()"
+				>Dispatch
+			</button>
 			<span class="text-gray-500 font-medium"> Total: {{ (products$ | async)?.length }} </span>
 		</div>
 

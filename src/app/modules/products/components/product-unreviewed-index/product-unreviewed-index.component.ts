@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Product } from '../../states/product.model';
 import { selectAllAPIProducts, selectApiProductError, selectApiProductLoading } from '../../states/product.selector';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
@@ -16,7 +16,8 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 		NgIf,
 		NgFor,
 		AsyncPipe,
-		ProductCardComponent
+		ProductCardComponent,
+		NgClass,
 	],
 	templateUrl: './product-unreviewed-index.component.html',
 	styleUrl: './product-unreviewed-index.component.scss'
@@ -89,6 +90,8 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 			// Unmark bug
 			this._cdRef.detectChanges();
 		})
+
+		this.currentSelectedProducts = [];
 	}
 
 	approveProduct(product: Product): void {

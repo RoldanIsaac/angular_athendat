@@ -58,6 +58,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	transition: 0.3s ease;
 }
 
+.disabled{
+	border: transparent !important;
+	background-color: gray !important;
+	pointer-events: none;
+}
+
 /* Media query para pantallas pequeñas (máximo 768px) */
 @media (max-width: 1099px) {
    .products-container {
