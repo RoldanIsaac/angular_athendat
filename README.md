@@ -1,59 +1,83 @@
-# AngularAthendat
+---
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.3.
+# AngularAthendat - API Mock
 
-## Development server
+Este proyecto utiliza un servicio mock proporcionado por [MockAPI](https://mockapi.io/) para simular una API. A continuación se detallan las instrucciones para ejecutar y probar la API.
 
-To start a local development server, run:
+## Descripción
 
-```bash
-ng serve
+La API utilizada en este proyecto está alojada en **[MockAPI](https://mockapi.io/)**. Este servicio simula una API que puede ser utilizada para hacer pruebas sin necesidad de tener un backend real.
+
+## Endpoint
+
+La URL base de la API es:
+
+```
+https://mockapi.io/your-endpoint
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Asegúrate de reemplazar `your-endpoint` con el endpoint específico que estás utilizando en tu proyecto. Esta URL es donde se realizan las peticiones para obtener, crear, actualizar y eliminar datos.
 
-## Code scaffolding
+## Instrucciones para probar la API
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Acceder a la API**: La API ya está configurada y funcionando en el servicio de MockAPI. Para acceder, simplemente realiza peticiones HTTP a los siguientes endpoints:
 
-```bash
-ng generate component component-name
+    - **GET /products**: Obtiene todos los productos.
+    - **POST /products**: Crea un nuevo producto.
+    - **PUT /products/{id}**: Actualiza un producto específico por su ID.
+    - **DELETE /products/{id}**: Elimina un producto específico por su ID.
+
+2. **Probar los Endpoints**: Puedes utilizar herramientas como [Postman](https://www.postman.com/) o `curl` en la terminal para realizar peticiones a la API.
+
+    - Para hacer una petición `GET` para obtener productos:
+    ```bash
+    curl https://mockapi.io/your-endpoint/products
+    ```
+
+    - Para crear un producto utilizando una petición `POST`:
+    ```bash
+    curl -X POST https://mockapi.io/your-endpoint/products -d '{"name": "Nuevo Producto", "price": 100}' -H "Content-Type: application/json"
+    ```
+
+3. **Pruebas automáticas**: Si el proyecto tiene pruebas automatizadas configuradas (como en el caso de usar un framework de testing en Angular o Node.js), simplemente ejecuta el comando adecuado para correr las pruebas de integración.
+
+    - Para pruebas en Node.js:
+    ```bash
+    npm test
+    ```
+
+    - Para pruebas en Angular:
+    ```bash
+    ng test
+    ```
+
+## Configuración
+
+Si necesitas configurar o cambiar cualquier detalle de la URL o los endpoints, abre el archivo donde se define el servicio y ajusta la URL base.
+
+### Ejemplo de servicio en Angular:
+
+```typescript
+@Injectable({
+  providedIn: 'root',
+})
+export class ProductService {
+  private apiUrl = 'https://mockapi.io/your-endpoint/products';
+
+  constructor(private http: HttpClient) {}
+
+  getProducts() {
+    return this.http.get<Product[]>(this.apiUrl);
+  }
+
+  // Otros métodos como POST, PUT, DELETE
+}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Reemplaza `https://mockapi.io/your-endpoint/products` con la URL que corresponda a tu proyecto.
 
-```bash
-ng generate --help
-```
+## Notas
 
-## Building
+- **MockAPI** ofrece un servicio gratuito con ciertas limitaciones de uso. No se pueded hacer que los productos sean random sino que vienen los mismos en cada petición.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
