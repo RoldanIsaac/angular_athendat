@@ -23,7 +23,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	_unsubscribeAll: Subject<any> = new Subject<any>()
 	products$: Observable<Product[] | null>
-	isLoading!: Observable<boolean>
+	isLoading$: Observable<boolean>
 	error!: Observable<string | null>
 
 	currentSelectedProducts: Product[] = [];
@@ -33,7 +33,7 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	) {
 		this.store.dispatch(ProductActions.loadApiProducts())
 		this.products$ = this.store.select(selectAllAPIProducts);
-		this.isLoading = this.store.select(selectApiProductLoading);
+		this.isLoading$ = this.store.select(selectApiProductLoading);
 		this.error = this.store.select(selectApiProductError);
 	}
 

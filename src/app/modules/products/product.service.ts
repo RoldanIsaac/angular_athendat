@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, from, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, from, map, Observable, of, tap, throwError } from 'rxjs';
 import { Product } from './states/product.model';
 import { openDB, IDBPDatabase } from 'idb';
 
@@ -70,6 +70,14 @@ export class ProductService {
     }
 
     return from(this.db.getAll('products')).pipe(
+      map((products: Product[]) => {
+        // Calcular el índice de inicio y el índice final
+        const startIndex = (page - 1) * limit;
+        const endIndex = startIndex + limit;
+  
+        // Devolver solo los productos dentro del rango
+        return products.slice(startIndex, endIndex);
+      }),
       catchError(error => {
         return throwError(() => error);
       })

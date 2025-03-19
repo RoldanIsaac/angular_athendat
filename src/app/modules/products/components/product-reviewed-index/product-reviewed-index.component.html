@@ -5,7 +5,7 @@
 		<!-- Header -->
 		<div class="view-header">
 			<h1 class="text-gray-500 text-2xl">Reviewed Products </h1>
-			<span class="text-gray-500 font-medium"> Total: {{ (products$ | async)?.length }} </span>
+			<span class="text-gray-500 font-medium"> 	Page: {{ page }} | Total: {{ (products$ | async)?.length }} </span>
 		</div>
 
 		<!-- Body -->
@@ -35,8 +35,5 @@
 				</div>
 			}
 		</div>
-
-		page: {{ page }}
-
 	</div>
 </div>

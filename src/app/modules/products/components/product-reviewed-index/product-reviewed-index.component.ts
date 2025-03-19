@@ -28,21 +28,16 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	products$: Observable<Product[] | null>;
 	isLoading$: Observable<boolean>;
 	error!: Observable<string | null>;
+	detailsDialog = ProductDetailsComponent;
 
 	page: number = 1;
 	limit: number = 7;
 
-  detailsDialog = ProductDetailsComponent;
-	
 	constructor(
 		private store: Store,
     	private _dialogService: DialogService,
 		private _cdRef: ChangeDetectorRef,
-	) {
-		// this.products$ = this.store.select(selectAllStoredProducts);
-		// this.isLoading$ = this.store.select(selectStoreProductLoading);
-		this.error = this.store.select(selectStoreProductError);
-	}
+	) { }
 
 	// -----------------------------------------------------------------------------------------------------
 	// @ Lifecycle Hooks
@@ -51,6 +46,7 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.products$ = this.store.pipe(select(selectAllStoredProducts)); 
 		this.isLoading$ = this.store.pipe(select(selectStoreProductLoading));
+		this.error = this.store.pipe(select(selectStoreProductError));
 
 		this.loadProducts();
 	}
@@ -68,6 +64,11 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 	// @ Public Methods
 	// -----------------------------------------------------------------------------------------------------
 
+	loadProducts(): void {
+		alert(this.page)
+		this.store.dispatch(ProductActions.loadStoredProducts({ page: this.page, limit: this.limit }));
+	}
+	
 	/**
 	 * @description
 	 */
@@ -96,19 +97,13 @@ export class ProductReviewedIndexComponent implements OnInit, OnDestroy {
 		this.store.dispatch(ProductActions.deleteProduct({ productId: product.id }));
 	}
 
-	loadProducts(): void {
-		// if (this.isLoading) return;
-		// this.isLoading = true;
-		this.store.dispatch(ProductActions.loadStoredProducts({ page: this.page, limit: this.limit }));
-	 }
-
 	/**
 	 * @description
 	 * Lazy loading | Infinite Scroll
 	 */
 	onScroll(event: any): void {
-		const element = event.target as HTMLElement;
-		const container = event.target;
+		const container = event.target as HTMLElement;
+		// const container = event.target;
 		const isBottom = container.scrollHeight === container.scrollTop + container.clientHeight;
 
 		if (isBottom) {

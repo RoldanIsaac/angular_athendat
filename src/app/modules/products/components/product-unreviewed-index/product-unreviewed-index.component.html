@@ -1,6 +1,6 @@
 <div class="view-container">
 
-	<div class="view bg-card rounded">
+	<div class="view bg-card rounded max-h-[550px]" #scrollContainer style="overflow-y: scroll;">
 
 		<!-- Header -->
 		<div class="view-header">
@@ -12,10 +12,7 @@
 
 		<!-- Body -->
 		<div class="view-body">
-			@if (isLoading | async ) {
-				<span class="loader-dual"></span>
-
-			} @else if (error | async ) {
+			@if (error | async ) {
 
 				Upsss... something went wrong!
 
@@ -27,13 +24,16 @@
 						<app-product-card
 							[product]="product"
 							(approveEmit)="approveProduct($event)"
-							(rejectEmit)="rejectProduct($event)"
+							(rejectEmit)="approveProduct($event)"
 						></app-product-card>
 
+					}
+
+					@if (isLoading$ | async ) {
+						<span class="loader-dual"></span>
 					}
 				</div>
 			}
 		</div>
-
 	</div>
 </div>
