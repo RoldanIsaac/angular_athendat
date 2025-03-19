@@ -52,6 +52,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	&:hover{
 		color: rgb(255, 115, 0);
 		background-color: rgb(247, 237, 217);
+    > mat-icon svg path {
+      color:  rgb(255, 115, 0);
+      stroke:  rgb(255, 115, 0);
+    }
 	}
   > mat-icon svg {
     width: 80%;
