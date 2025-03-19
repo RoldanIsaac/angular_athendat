@@ -24,6 +24,7 @@
 
 						<app-product-card
 							[product]="product"
+							[parent]="'unreviewed'"
 							(approveEmit)="approveProduct($event)"
 							(rejectEmit)="approveProduct($event)"
 						></app-product-card>

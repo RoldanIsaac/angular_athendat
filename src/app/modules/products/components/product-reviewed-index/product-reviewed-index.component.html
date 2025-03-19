@@ -23,6 +23,7 @@
 
 						<app-product-card
 							[product]="product"
+							[parent]="'reviewed'"
 							(approveEmit)="approveProduct($event)"
 							(rejectEmit)="approveProduct($event)"
 							(detailsEmit)="openDetailsDialog($event)"

@@ -7,10 +7,7 @@
 		<span> {{ product.price | currency }}</span>
 	</div>
 
-	<div 
-		class="product-card-action" 
-		*ngIf="product.status.toLowerCase() !== 'approved' || product.status.toLowerCase() !== 'rejected'"
-	>
+	<div class="product-card-action" *ngIf="parent === 'unreviewed'">
 		<mat-checkbox
 			[(ngModel)]="approve"
 			(change)="onApprove(product)"
@@ -23,14 +20,15 @@
 			>
 			Reject
 		</mat-checkbox>
+	</div>
 
-		<!-- *ngIf="product.status.toLowerCase() === 'approved' || product.status.toLowerCase() === 'rejected'" -->
-		<!-- Edit -->
+	<div class="product-card-action" *ngIf="parent === 'reviewed'">
+		<!-- Details -->
 		<button 
 			mat-icon-button
 			type="button" 
 			(click)="onDetails(product)"
-			matTooltip="Edit this element"
+			matTooltip="View details"
 			[matTooltipPosition]="positionOptions[2]"
 			class="sho-action-button sho-action-button-details"
 		>
@@ -48,6 +46,5 @@
 		>
 			<mat-icon *ngIf="isIcon" class="blue-icon" svgIcon="delete-02"></mat-icon>
 		</button>
-
 	</div>
 </div>

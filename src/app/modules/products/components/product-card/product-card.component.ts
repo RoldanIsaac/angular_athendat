@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
+  @Input() parent!: 'reviewed' | 'unreviewed';
 
   @Output() detailsEmit = new EventEmitter(); 
   @Output() approveEmit = new EventEmitter(); 
