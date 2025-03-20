@@ -13,7 +13,7 @@ Este proyecto utiliza un servicio mock proporcionado por [MockAPI](https://mocka
 La URL base de la API es:
 
 ```
-[https://mockapi.io/your-endpoint](https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products)
+(https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products)
 ```
 ## Instrucciones para probar la API
 
