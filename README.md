@@ -4,13 +4,9 @@
 
 Para iniciar la app y acceder, simplemente instalar los paquetes de Node con el comando npm install y luego levantar el servidor local con ng serve.
 
-## API Mock
+## API Mock - Descripción
 
-Este proyecto utiliza un servicio mock proporcionado por [MockAPI](https://mockapi.io/) para simular una API. A continuación se detallan las instrucciones para ejecutar y probar la API.
-
-## Descripción
-
-La API utilizada en este proyecto está alojada en **[MockAPI](https://mockapi.io/)**. Este servicio simula una API que puede ser utilizada para hacer pruebas sin necesidad de tener un backend real.
+Este proyecto utiliza un servicio mock proporcionado por [MockAPI](https://mockapi.io/) para simular una API sin necesidad de tener un backend real. A continuación se detallan las instrucciones para ejecutar y probar la API.
 
 ## Endpoint
 
