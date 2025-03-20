@@ -17,7 +17,7 @@ La URL base de la API es:
 ```
 ## Instrucciones para probar la API
 
-1. **Luego de acceder a la App**: La API ya está configurada y funcionando en el servicio de MockAPI.
+1. **Luego de acceder a la App**: La aplicación ya está configurada y funcionando en el servicio de MockAPI.
 
 ## Configuración
 
