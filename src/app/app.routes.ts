@@ -6,7 +6,7 @@ export const routes: Routes = [
    { 
       path: '',
       pathMatch: 'full',
-      redirectTo: 'app'
+      redirectTo: 'app/home'
    },
    { 
       path: 'app',
