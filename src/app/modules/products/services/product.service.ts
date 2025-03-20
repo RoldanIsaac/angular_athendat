@@ -115,7 +115,7 @@ export class ProductService {
 	 * @description
 	 * Get product by id
 	 */
-  getProductById(productId: string): Observable<Product | undefined> {
+  getProductById(productId: number): Observable<Product | undefined> {
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));
     }
@@ -161,7 +161,7 @@ export class ProductService {
 	 * @description
 	 * Delete product
 	 */ 
-  deleteDbProduct(productId: string): Observable<void> {
+  deleteDbProduct(productId: number): Observable<void> {
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));
     }

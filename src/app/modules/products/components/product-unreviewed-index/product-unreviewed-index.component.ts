@@ -77,7 +77,7 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	 * Using the product id as unique identifier
 	 */
 	trackByProductId(index: number, product: any): number {
-		return product.id;  // Using the product id as unique identifier
+		return product.id; 
 	}
 
 	/**

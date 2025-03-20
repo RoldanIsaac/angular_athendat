@@ -1,6 +1,6 @@
 
 export interface Product {
-	id: string,
+	id: number,
    serial: string,
    name: string,
    category: string,
