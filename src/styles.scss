@@ -167,6 +167,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: #ff9800;
 }
 
+.details-cta,
+.delete-cta {
+  > mat-icon svg {
+    width: 90%;
+    transform: translateX(4px), translateY(-2px);
+  }
+}
+
+.details-cta mat-icon svg path{
+  color: rgb(95, 119, 217);
+  fill: rgb(99, 181, 222);
+}
+.delete-cta mat-icon svg path{
+  color: rgb(217, 95, 95);
+  fill: rgb(222, 99, 99);
+}
+
 /* Estilos generales para todos los botones */
 .btn {
    display: inline-block;
