@@ -19,11 +19,11 @@ export const loadApiProductsFailure = createAction(
    // Delete
 export const deleteApiProduct = createAction(
    '[Product] Delete Api Product',
-   props<{ productId: string }>()
+   props<{ productId: number }>()
 );
 export const deleteApiProductSuccess = createAction(
    '[Product] Delete Api Product Success',
-   props<{ productId: string }>()
+   props<{ productId: number }>()
 );
 export const deleteApiProductFailure = createAction(
    '[Product] Delete Api Product Failure',
@@ -56,11 +56,11 @@ export const restoreStoreProducts = createAction(
    // Delete
 export const deleteDbProduct = createAction(
    '[Product] Delete DB Product',
-   props<{ productId: string }>()
+   props<{ productId: number }>()
 );
 export const deleteDbProductSuccess = createAction(
    '[Product] Delete DB Product Success',
-   props<{ productId: string }>()
+   props<{ productId: number }>()
 );
 export const deleteDbProductFailure = createAction(
    '[Product] Delete DB Product Failure',
@@ -88,11 +88,11 @@ export const storeProductFailure = createAction(
    // Change product status
 export const changeProductStatus = createAction(
    '[Product] Change Product Status',
-   props<{ productId: string; status: 'approved' | 'rejected' }>()
+   props<{ productId: number; status: 'approved' | 'rejected' }>()
 );
 export const changeProductStatusSuccess = createAction(
    '[Product] Change Product Status Success',
-   props<{ productId: string; status: 'approved' | 'rejected' }>()
+   props<{ productId: number; status: 'approved' | 'rejected' }>()
 );
 export const changeProductStatusFailure = createAction(
    '[Product] Change Product Status Failure',

@@ -15,7 +15,7 @@ export class AdapterService {
     //   price: 100,
     // }
     return {
-      id: productData.id,
+      id: Number(productData.id),
       name: productData.name,
       serial: productData.serial,
       category: productData.category,
