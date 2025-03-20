@@ -1,5 +1,3 @@
----
-
 # AngularAthendat
 
 Para iniciar la app y acceder, simplemente instalar los paquetes de Node con el comando npm install y luego levantar el servidor local con ng serve.
@@ -15,6 +13,7 @@ La URL base de la API es:
 ```
 (https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products)
 ```
+
 ## Instrucciones para probar la API
 
 1. **Luego de acceder a la App**: La aplicación ya está configurada y funcionando en el servicio de MockAPI.
@@ -26,5 +25,3 @@ Si necesitas configurar o cambiar cualquier detalle de la URL o los endpoints, a
 ## Notas
 
 - **MockAPI** ofrece un servicio gratuito con ciertas limitaciones de uso. No se puede hacer que los productos sean generados aleatoriamente en cada petición sino que quedan fijos.
-
----
