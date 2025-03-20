@@ -8,6 +8,7 @@ import { DialogService } from '../../../../services/dialog.service';
 import { Product } from '../../states/product.model';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-product-card',
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     MatCheckboxModule,
     FormsModule,
     UpperCasePipe,
+    MatDividerModule,
   ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'
