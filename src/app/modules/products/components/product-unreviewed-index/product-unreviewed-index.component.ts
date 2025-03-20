@@ -87,6 +87,7 @@ export class ProductUnreviewedIndexComponent implements OnInit, OnDestroy {
 	dispatchProducts(): void {
 		// console.log(this.currentSelectedProducts);
 		this.currentSelectedProducts.forEach((product) => {
+			// console.log(product)
 			// Store the selected products
 			this.store.dispatch(ProductActions.storeProduct({ product: product }))
 

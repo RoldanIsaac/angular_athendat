@@ -3,12 +3,16 @@
       <!-- {{ product | json }} -->
       <h1> {{ product.name }}  | Category: {{ product.category }}</h1>
       <p> {{ product.description }} </p>
+
+		<mat-divider></mat-divider>
      
-		<div class="flex flex-row space-x-4 py-3">
-			<p class="text-gray-700"> Weight: {{ product.weight }}</p>
-			<p class="text-gray-700"> Stock: {{ product.stock }}</p>
+		<div class="flex flex-row space-between">
+			<div class="flex flex-row space-x-4 py-3">
+				<p class="text-gray-700"> Weight: {{ product.weight }}</p>
+				<p class="text-gray-700"> Stock: {{ product.stock }}</p>
+			</div>
+			<span class="price-span"> {{ product.price | currency }}</span>
 		</div>
-		<span> {{ product.price | currency }}</span>
 
    </div>
 

@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { Subject } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-basic-layout',
@@ -14,6 +15,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
     RouterOutlet,
     MatSidenavModule,
     SidebarComponent,
+    MatIconModule,
   ],
   templateUrl: './basic-layout.component.html',
   styleUrl: './basic-layout.component.scss'
@@ -23,5 +25,9 @@ export class BasicLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  ngOnDestroy(): void {
+ 
   }
 }

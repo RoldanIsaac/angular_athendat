@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Product } from '../../states/product.model';
 import { CurrencyPipe, NgIf } from '@angular/common';
 import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-product-details',
@@ -11,6 +12,7 @@ import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
     NgIf,
     MatTooltipModule,
     MatDialogModule,
+    MatDividerModule,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'

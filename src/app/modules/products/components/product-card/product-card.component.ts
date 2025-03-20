@@ -1,4 +1,4 @@
-import { CurrencyPipe, JsonPipe, NgIf } from '@angular/common';
+import { CurrencyPipe, JsonPipe, NgClass, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, input, OnInit, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -13,13 +13,15 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-product-card',
   imports: [
     NgIf,
+    NgClass,
     MatIconButton,
     MatTooltipModule,
     MatIconModule,
     JsonPipe,
     CurrencyPipe,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    UpperCasePipe,
   ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'

@@ -4,7 +4,7 @@
 		<!-- {{ product | json }} -->
 		<h1> {{ product.name }}  | Category: {{ product.category }}</h1>
 		<p> {{ product.description }} </p>
-		<span> {{ product.price | currency }}</span>
+		<span class="price-span"> {{ product.price | currency }}</span>
 	</div>
 
 	<div class="product-card-action" *ngIf="parent === 'unreviewed'">
@@ -23,8 +23,12 @@
 	</div>
 
 	<div class="product-card-action" *ngIf="parent === 'reviewed'">
-		<span *ngIf="parent === 'reviewed'" class="text-gray-500 text-sm mt-2 px-5"> 
-			Status: {{ product.status }}
+		<span *ngIf="parent === 'reviewed'" class="status" [ngClass]="{
+			'approved': product.status === 'approved',
+			'rejected': product.status === 'rejected',
+			'pending': product.status === 'pending'
+		 }"> 
+			{{ product.status | uppercase }}
 		</span>
 
 		<!-- Details -->

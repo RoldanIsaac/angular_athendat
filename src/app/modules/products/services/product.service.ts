@@ -4,6 +4,7 @@ import { catchError, from, map, Observable, of, Subject, tap, throwError } from 
 import { Product } from '../states/product.model';
 import { openDB, IDBPDatabase } from 'idb';
 import { AdapterService } from './adapter.service';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ProductService {
   private _noMoreProducts: Subject<boolean> = new Subject<boolean>();
   private _productAdapter = inject(AdapterService)
   private _http = inject(HttpClient)
+  private _utils = inject(UtilsService)
 
   // API URL
   private mockApiUrl = 'https://67d9cfe735c87309f52a3697.mockapi.io/api/v1/products';
@@ -39,7 +41,10 @@ export class ProductService {
   // @ Private Methods
   // ------------------------------------------------------------------------------------------
 
-  // Init Indexed Database
+  /**
+	 * @description
+	 * Init Indexed Database
+	 */ 
   private async initDB() {
     this.db = await openDB(this.dbName, this.dbVersion, {
       upgrade(db) {
@@ -54,7 +59,10 @@ export class ProductService {
   // @ Public Methods
   // ------------------------------------------------------------------------------------------
 
-  // Get MockAPI products
+  /**
+	 * @description
+	 * Get MockAPI products
+	 */
   getMockApiProducts(): Observable<any[]> {
     // return this._http.get<any[]>(this.mockApiUrl);
     return this._http.get<any[]>(this.mockApiUrl).pipe(
@@ -62,7 +70,10 @@ export class ProductService {
     );
   }
 
-  // Change product status
+  /**
+	 * @description
+	 * Change product status
+	 */ 
   // changeProductStatus(productId: string, status: 'approved' | 'rejected'): Observable<void> {
   //   console.log(productId)
   //   return of();
@@ -72,7 +83,10 @@ export class ProductService {
   // @ Indexed Database Methods (CRUD)
   // ------------------------------------------------------------------------------------------
 
-  // Get all products
+  /**
+	 * @description
+	 * Get all products
+	 */
   getProducts(page: number, limit: number): Observable<Product[]> {
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));
@@ -97,7 +111,10 @@ export class ProductService {
     );
   }   
 
-  // Get product by id
+  /**
+	 * @description
+	 * Get product by id
+	 */
   getProductById(productId: string): Observable<Product | undefined> {
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));
@@ -109,14 +126,17 @@ export class ProductService {
       })
     );
   }
-  
-  // Store single product
+
+  /**
+	 * @description
+	 * Store single product
+	 */ 
   storeProduct(product: Product): Observable<any> {
 
     // Simulate random id
     const _product = {
-      id: Math.floor(Math.random() * 1000),
-      ...product
+      ...product,
+      id: this._utils.generateRandomId(),
     }
 
     if (!this.db) {
@@ -137,7 +157,10 @@ export class ProductService {
   //   }
   // }
 
-  // Delete product
+  /**
+	 * @description
+	 * Delete product
+	 */ 
   deleteDbProduct(productId: string): Observable<void> {
     if (!this.db) {
       return new Observable(observer => observer.error('Database not initialized'));

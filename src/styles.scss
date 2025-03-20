@@ -42,16 +42,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	color: gray;
 	border-radius: 4px;
 	min-width: 100% !important;
-	height: 36px;
+	height: 50px;
 	position: relative;
 	line-height: 36px;
-  font-size: 14px;
+  font-size: 16px;
   gap: .2rem;
 	padding: 0 10px 0 10px;
 	transition: all 0.2s ease;
 	&:hover{
 		color: rgb(255, 115, 0);
-		background-color: rgb(247, 237, 217);
+		background-color: rgb(244, 240, 231);
     > mat-icon svg path {
       color:  rgb(255, 115, 0);
       stroke:  rgb(255, 115, 0);
@@ -97,7 +97,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .product-card {
    position: relative;
-   height: 9rem !important;
+   height: 9.4rem !important;
    border: solid 1px #d1d5db;
    border-radius: 8px;
    min-width: 350px !important;
@@ -111,17 +111,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .product-card-content{
    > h1 {
       color: rgb(224, 149, 8);
+      padding-bottom: 5px;
    }
    > p {
       font-size: 14px;
       color: #45494f;
       height: 4.2rem;
    }
-   > span {
-      font-size: 20px;
-      font-weight: 600;
-      color: #0f4392;
+   > div {
+      font-size: 14px;
+      color: #45494f;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
    }
+}
+
+.price-span {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f4392;
 }
 
 .product-card-action{
@@ -129,13 +139,33 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
    position: absolute;
    bottom: 0;
    right: 0;
-   padding: 0 1rem 2px 0;
+   padding: 0 1rem 0.5rem 0;
    justify-content: end;
    display: flex;
    flex-direction: row;
 }
 
+.status {
+  margin-top: 8px;
+  white-space: nowrap;
+  font-size: 12px !important;
+  font-weight: 500;
+  text-align: center;
+  padding: 5px 18px 5px 18px;
+  border-radius: 8px;
+}
 
+.approved {
+  color: #4caf50;
+}
+
+.rejected {
+  color: #f44336; 
+}
+
+.pending {
+  color: #ff9800;
+}
 
 /* Estilos generales para todos los botones */
 .btn {
