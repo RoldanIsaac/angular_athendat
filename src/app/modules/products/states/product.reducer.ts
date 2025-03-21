@@ -13,6 +13,9 @@ export interface ApiProductState {
  
  export interface DbProductState {
 	products: Product[];
+	currentPage: number;
+	pageSize: number;
+	totalProducts: number;
 	loading: boolean;
 	error: string | null;
  }
@@ -33,6 +36,9 @@ export const initialApiProductState: ApiProductState = {
  
  export const initialDbProductState: DbProductState = {
 	products: [],
+	currentPage: 1,
+	pageSize: 7,
+	totalProducts: 0,
 	loading: false,
 	error: null
  };
